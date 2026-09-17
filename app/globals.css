@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@theme inline {
+  --font-sans: Arial, sans-serif;
+  --font-serif: Georgia, serif;
+  --color-background: #f7f8f5;
+  --color-foreground: #11231e;
+  --color-card: #fff;
+  --color-card-foreground: #11231e;
+  --color-primary: #153f38;
+  --color-primary-foreground: #fff;
+  --color-secondary: #e9f0e9;
+  --color-secondary-foreground: #17352c;
+  --color-muted: #edf1ed;
+  --color-muted-foreground: #64746d;
+  --color-accent: #efb366;
+  --color-accent-foreground: #11231e;
+  --color-border: #dce5df;
+  --color-input: #dce5df;
+  --color-ring: #0f6b55;
+  --radius: 1rem;
+}
+:root {
+  color-scheme: light;
+}
+* {
+  border-color: #dce5df;
+}
+html {
+  scroll-behavior: smooth;
+  background: #f7f8f5;
+}
+body {
+  margin: 0;
+  background: #f7f8f5;
+  color: #11231e;
+  font-family: Arial, sans-serif;
+}
+.display {
+  font-family: Georgia, serif;
+  letter-spacing: -0.04em;
+}
+.container-wide {
+  width: min(1160px, calc(100% - 40px));
+  margin-inline: auto;
+}
+::selection {
+  background: #efb366;
+  color: #11231e;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: rise 0.7s ease both;
+}
