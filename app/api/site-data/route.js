@@ -14,6 +14,7 @@ const navItems = [
   { label: "Impact", to: "/impact" },
   { label: "Stories", to: "/stories" },
   { label: "About", to: "/about" },
+  { label: "Empowerment", to: "/empowerment" },
 ];
 
 const pageCopy = {

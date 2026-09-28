@@ -30,7 +30,7 @@ export function Footer() {
           ["Resources", "News", "Donation policy", "Privacy policy", "Terms"],
         ].map(([h, ...items]) => (
           <div key={h}>
-            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[.18em] text-[#efb366]">
+            <h3 className="mb-5 text-xs font-semibold uppercase tracking-[.18em] text-accent">
               {h}
             </h3>
             <div className="flex flex-col gap-3 text-sm text-white/65">

@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter,
@@ -29,6 +30,16 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { formatNaira } from "../data/site";
+import { navItems as defaultNavItems } from "../data/site";
+import RegistrationPage from "../components/membership/RegistrationPage";
+import { nigeriaStates } from "../lib/nigeria-states";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 import { Button } from "../components/ui/button";
 import {
   Dialog,
@@ -61,15 +72,12 @@ const emptySiteData = {
 
 function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-3">
-      <span className="grid size-10 place-items-center rounded-full bg-primary text-primary-foreground">
-        <Heart fill="currentColor" size={19} />
-      </span>
-      <span className="font-semibold tracking-tight">
-        UAHIN
-        <br />
-        <span className="text-[0.58rem] font-normal tracking-[.18em] text-muted-foreground">
-          UPLIFTMENT AGAINST HUNGER
+    <Link to="/" aria-label="Upliftment Against Hunger in Nigeria home" className="flex min-w-0 items-center gap-2.5">
+      <Image src="/logo.JPG" alt="" width={44} height={44} priority className="size-10 shrink-0 rounded-[5px] object-cover sm:size-11" />
+      <span className="min-w-0 font-semibold leading-tight tracking-tight">
+        <span className="block text-xs sm:text-sm">Upliftment Against Hunger</span>
+        <span className="mt-1 block text-[0.55rem] font-medium tracking-[.12em] text-muted-foreground sm:text-[0.6rem]">
+          IN NIGERIA
         </span>
       </span>
     </Link>
@@ -89,12 +97,16 @@ function HelpButton({ onClick, className = "" }) {
 function Navbar({ onDonate, navItems }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const empowermentItem = { label: "Empowerment", to: "/empowerment" };
+  const mainNavItems = navItems.some((item) => item.to === empowermentItem.to)
+    ? navItems
+    : [...navItems, empowermentItem];
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="container-wide flex h-19 items-center justify-between gap-8">
         <Logo />
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
-          {navItems.map((n) => {
+          {mainNavItems.map((n) => {
             const active = location.pathname === n.to || (n.to !== "/" && location.pathname.startsWith(n.to));
             return (
               <Link
@@ -120,7 +132,7 @@ function Navbar({ onDonate, navItems }) {
       </div>
       {open && (
         <nav className="container-wide flex flex-col gap-2 border-t border-border/70 py-5 md:hidden" aria-label="Mobile navigation">
-          {navItems.map((n) => (
+          {mainNavItems.map((n) => (
             <Link
               onClick={() => setOpen(false)}
               key={n.to}
@@ -492,7 +504,7 @@ function WorkArchive({ gallery = [] }) {
               <img
                 src={item.image}
                 alt={item.title}
-                className="aspect-[4/5] w-full object-cover transition duration-500 hover:scale-[1.015] md:aspect-[4/5]"
+                className="aspect-4/5 w-full object-cover transition duration-500 hover:scale-[1.015] md:aspect-4/5"
               />
             </div>
           ))}
@@ -774,6 +786,7 @@ function Community() {
     lastName: "",
     email: "",
     phone: "",
+    state: "",
   });
 
   const handleChange = (event) => {
@@ -799,7 +812,7 @@ function Community() {
         throw new Error(data.error || "Unable to join our community.");
       }
 
-      setForm({ firstName: "", lastName: "", email: "", phone: "" });
+      setForm({ firstName: "", lastName: "", email: "", phone: "", state: "" });
       setSent(true);
     } catch (submissionError) {
       setError(
@@ -881,6 +894,27 @@ function Community() {
                   aria-label="Mobile number"
                   className="h-12 rounded-xl border border-[#e3d8cc] bg-[#f9f5f1] px-4 text-base text-[#11231e] placeholder:text-[#7b8a84] focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/10"
                 />
+              </label>
+              <label className="grid gap-2 text-[0.7rem] font-semibold uppercase tracking-[.18em] text-[#3d564f]">
+                <span>State</span>
+                <Select
+                  name="state"
+                  value={form.state}
+                  onValueChange={(value) => setForm((current) => ({ ...current, state: value || "" }))}
+                  required
+                >
+                  <SelectTrigger
+                    aria-label="State"
+                    className="h-12 data-[size=default]:h-12 w-full rounded-xl border border-[#e3d8cc] bg-white px-4 text-base text-black focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/10"
+                  >
+                    <SelectValue className="text-base font-normal normal-case tracking-normal text-black data-placeholder:text-[#7b8a84]" placeholder="Select your state" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white text-black">
+                    {nigeriaStates.map((state) => (
+                      <SelectItem className="text-black focus:bg-[#f3f4f3] focus:text-black" key={state} value={state}>{state}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </label>
               {error && (
                 <p className="text-sm text-red-600" role="alert">
@@ -1257,6 +1291,24 @@ function Home() {
     </>
   );
 }
+function Empowerment() {
+  const [donate, setDonate] = useState(false);
+  return (
+    <>
+      <Navbar onDonate={() => setDonate(true)} navItems={defaultNavItems} />
+      <RegistrationPage />
+      <Footer />
+      <div className="border-t border-[#e1e8e3] bg-white">
+        <div className="container-wide py-7 text-center">
+          <p className="text-sm font-semibold tracking-wide text-secondary-foreground">UAHIN</p>
+          <p className="mt-2 text-sm text-[#52685e]">Empowering Lives • Fighting Hunger • Building Hope</p>
+          <a className="mt-2 inline-block text-sm text-[#1a6658] underline decoration-[#a9c4b5] underline-offset-4" href="https://www.uahin.org">www.uahin.org</a>
+        </div>
+      </div>
+      <DonationExperience open={donate} onOpenChange={setDonate} />
+    </>
+  );
+}
 function Inner({ type }) {
   const [donate, setDonate] = useState(false);
   const [siteData, setSiteData] = useState(emptySiteData);
@@ -1528,6 +1580,7 @@ function App() {
         <Route path="/our-work" element={<Inner type="/our-work" />} />
         <Route path="/impact" element={<Inner type="/impact" />} />
         <Route path="/about" element={<Inner type="/about" />} />
+        <Route path="/empowerment" element={<Empowerment />} />
         <Route
           path="/donation-policy"
           element={

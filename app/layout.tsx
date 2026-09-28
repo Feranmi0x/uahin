@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description:
     "A Nigerian-led humanitarian organization responding to hunger with food relief, community support, and local resilience.",
   generator: "v0.app",
+  icons: {
+    icon: "/logo.JPG",
+    shortcut: "/logo.JPG",
+    apple: "/logo.JPG",
+  },
 };
 export const viewport: Viewport = {
   colorScheme: "light",

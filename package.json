@@ -11,6 +11,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "admin:hash-password": "node scripts/hash-admin-password.mjs",
     "db:seed": "node db/seed.js"
   },
   "dependencies": {
@@ -19,10 +20,12 @@
     "@vercel/analytics": "1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cn": "^0.4.0",
     "drizzle-orm": "^0.45.2",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^1.16.0",
     "next": "16.3.3",
+    "next-auth": "^4.24.15",
     "react": "^19",
     "react-dom": "^19",
     "react-router-dom": "^7.18.3",

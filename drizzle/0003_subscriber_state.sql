@@ -1,0 +1,1 @@
+ALTER TABLE "subscribers" ADD COLUMN "state" varchar(100);

@@ -3,6 +3,7 @@ import {
   createSubscriber,
   getSubscriberByEmail,
 } from "../../../lib/db/queries/subscribers";
+import { nigeriaStates } from "../../../lib/nigeria-states";
 
 export async function POST(request) {
   try {
@@ -11,10 +12,18 @@ export async function POST(request) {
     const lastName = String(payload.lastName || "").trim();
     const email = String(payload.email || "").trim();
     const phone = String(payload.phone || "").trim();
+    const state = String(payload.state || "").trim();
 
     if (!email) {
       return NextResponse.json(
         { error: "Email is required." },
+        { status: 400 },
+      );
+    }
+
+    if (!nigeriaStates.includes(state)) {
+      return NextResponse.json(
+        { error: "Select a valid Nigerian state." },
         { status: 400 },
       );
     }
@@ -32,6 +41,7 @@ export async function POST(request) {
       lastName: lastName || null,
       email,
       phone: phone || null,
+      state,
     });
 
     return NextResponse.json({ ok: true, subscriber }, { status: 201 });
