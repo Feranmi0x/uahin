@@ -15,7 +15,7 @@ export function ImpactSection({ stats = [] }) {
             From the Sahel to the Middle Belt, our work is rooted in local partnerships and measurable outcomes.
           </p>
         </div>
-        <div className="relative min-h-[22rem] overflow-hidden rounded-[2rem] bg-[#b8d7bf] p-6">
+        <div className="relative min-h-88 overflow-hidden rounded-4xl bg-[#b8d7bf] p-6">
           <div className="absolute left-[44%] top-[18%] h-56 w-40 rotate-12 rounded-[45%_55%_48%_52%] bg-primary/80 shadow-xl md:h-64 md:w-48" />
           <div className="absolute left-[52%] top-[27%] size-4 rounded-full bg-accent ring-4 ring-white/70" />
           <div className="absolute left-[39%] top-[43%] size-4 rounded-full bg-accent ring-4 ring-white/70" />

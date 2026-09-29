@@ -32,7 +32,7 @@ export function HeroSection({ copy = {
           </Link>
         </div>
       </div>
-      <div className="relative min-h-[28rem] overflow-hidden rounded-[2rem] bg-secondary">
+      <div className="relative min-h-112 overflow-hidden rounded-4xl bg-secondary">
         <img
           src={copy.image}
           alt="Nigerian family at a community food program"
