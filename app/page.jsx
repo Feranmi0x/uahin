@@ -1012,48 +1012,59 @@ function DonationExperience({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="h-screen max-h-screen w-screen max-w-none sm:max-w-none overflow-y-auto rounded-none border-slate-200 bg-white p-0 text-slate-900">
-        <div className="mx-auto max-w-2xl px-6 py-8 md:px-8 md:py-10">
+      <DialogContent showCloseButton={false} className="h-dvh max-h-dvh w-screen max-w-none overflow-y-auto rounded-none border-slate-200 bg-white p-0 text-slate-900 sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:w-full sm:max-w-2xl sm:rounded-xl">
+        <div className="mx-auto max-w-2xl px-4 pb-4 pt-16 sm:px-6 sm:py-8 md:px-8 md:py-10">
           <DialogHeader className="text-left">
-            <p className="text-xs font-semibold uppercase tracking-[.2em] text-emerald-700">
-              Give with confidence
-            </p>
-            <DialogTitle className="display mt-3 text-4xl md:text-5xl text-slate-900">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold uppercase tracking-[.2em] text-emerald-700">
+                Give with confidence
+              </p>
+              <button
+                type="button"
+                aria-label="Close donation dialog"
+                title="Close donation dialog"
+                onClick={() => onOpenChange(false)}
+                className="grid size-10 shrink-0 place-items-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <DialogTitle className="display mt-1 text-3xl text-slate-900 sm:mt-3 sm:text-4xl md:text-5xl">
               Your support can make a difference.
             </DialogTitle>
-            <DialogDescription className="mt-4 leading-6 text-slate-600">
+            <DialogDescription className="mt-2 text-xs leading-5 text-slate-600 sm:mt-4 sm:text-sm sm:leading-6">
               Choose a donation amount, add your email, and continue to Paystack.
             </DialogDescription>
           </DialogHeader>
 
           {done ? (
-            <div className="mt-10 flex min-h-80 flex-col items-center justify-center text-center">
+            <div className="mt-5 flex min-h-64 flex-col items-center justify-center text-center sm:mt-10 sm:min-h-80">
               <Check className="text-emerald-700" size={48} />
-              <h3 className="display mt-5 text-4xl text-slate-900">
+              <h3 className="display mt-3 text-3xl text-slate-900 sm:mt-5 sm:text-4xl">
                 {paymentResult === "success" ? "Thank you for standing with us." : paymentResult === "failure" ? "Payment could not be confirmed." : "Thank you for choosing to help."}
               </h3>
-              <p className="mt-3 text-slate-600">
+              <p className="mt-2 text-sm text-slate-600 sm:mt-3">
                 {paymentResult === "success" ? "Your NGN donation was verified and recorded securely." : paymentResult === "failure" ? "No funds were recorded. You can try again whenever you are ready." : "You are being redirected to Paystack's secure checkout."}
               </p>
               <Button
                 onClick={() => setDone(false)}
                 variant="outline"
-                className="mt-7 rounded-full"
+                className="mt-4 h-10 rounded-full sm:mt-7 sm:h-11"
               >
                 Make another choice
               </Button>
             </div>
           ) : (
-            <div className="mt-8 flex flex-col gap-7">
+            <div className="mt-4 flex flex-col gap-4 sm:mt-8 sm:gap-7">
               <div>
-                <p className="mb-3 text-sm font-semibold text-slate-800">Donation amount</p>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                <p className="mb-2 text-xs font-semibold text-slate-800 sm:mb-3 sm:text-sm">Donation amount</p>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
                   {[5000, 10000, 25000, 50000, 100000].map((v) => (
                     <button
                       type="button"
                       key={v}
                       onClick={() => setAmount(v)}
-                      className={`rounded-xl border px-3 py-4 text-sm font-medium transition ${amount === v ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
+                      className={`rounded-xl border px-3 py-2.5 text-sm font-medium transition sm:py-4 ${amount === v ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
                     >
                       {symbol}{formatNaira(v)}
                     </button>
@@ -1061,12 +1072,12 @@ function DonationExperience({ open, onOpenChange }) {
                   <button
                     type="button"
                     onClick={() => setAmount("")}
-                    className={`rounded-xl border px-3 py-4 text-sm font-medium ${typeof amount !== "number" ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
+                    className={`rounded-xl border px-3 py-2.5 text-sm font-medium sm:py-4 ${typeof amount !== "number" ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
                   >
                     Custom Amount
                   </button>
                 </div>
-                <div className="mt-3 flex items-center rounded-xl border border-slate-200 bg-white px-4">
+                <div className="mt-2 flex items-center rounded-xl border border-slate-200 bg-white px-3 sm:mt-3 sm:px-4">
                   <span className="text-slate-500">{symbol}</span>
                   <input
                     inputMode="numeric"
@@ -1080,13 +1091,13 @@ function DonationExperience({ open, onOpenChange }) {
                     }}
                     aria-label="Custom donation amount"
                     placeholder="Enter custom amount"
-                    className="w-full bg-transparent px-3 py-3 outline-none text-[#2f5d54]"
+                    className="w-full bg-transparent px-2 py-2 outline-none text-[#2f5d54] sm:px-3 sm:py-3"
                   />
                 </div>
               </div>
 
               <div>
-                <p className="mb-3 text-sm font-semibold text-slate-800">Email address</p>
+                <p className="mb-2 text-xs font-semibold text-slate-800 sm:mb-3 sm:text-sm">Email address</p>
                 <Input
                   type="email"
                   name="email"
@@ -1095,13 +1106,13 @@ function DonationExperience({ open, onOpenChange }) {
                   placeholder="Email address"
                   aria-label="Email address"
                   required
-                  className="h-12 rounded-xl border-slate-200 bg-white text-slate-900"
+                  className="h-10 rounded-xl border-slate-200 bg-white text-slate-900 sm:h-12"
                 />
               </div>
 
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-                <div className="flex items-center gap-3">
-                  <CreditCard className="text-emerald-700" />
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-700 sm:p-4 sm:text-sm">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <CreditCard className="size-4 shrink-0 text-emerald-700 sm:size-5" />
                   <span>Paystack secure payment · NGN only</span>
                 </div>
               </div>
@@ -1111,7 +1122,7 @@ function DonationExperience({ open, onOpenChange }) {
               <Button
                 onClick={beginPayment}
                 disabled={processing}
-                className="h-12 w-full rounded-md border border-[#1a6658] bg-[#1a6658] px-6 text-[0.72rem] font-semibold tracking-[.12em] text-white uppercase shadow-sm transition-colors hover:border-[#154d44] hover:bg-[#154d44] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:border-[#9bb6ad] disabled:bg-[#f2f7f5] disabled:text-[#7a8d87]"
+                className="h-10 w-full rounded-md border border-[#1a6658] bg-[#1a6658] px-4 text-[0.68rem] font-semibold tracking-widest text-white uppercase shadow-sm transition-colors hover:border-[#154d44] hover:bg-[#154d44] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:border-[#9bb6ad] disabled:bg-[#f2f7f5] disabled:text-[#7a8d87] sm:h-12 sm:px-6 sm:text-[0.72rem] sm:tracking-[.12em]"
               >
                 {processing ? "Connecting To Paystack..." : "Continue To Payment"} <Lock data-icon="inline-end" />
               </Button>
