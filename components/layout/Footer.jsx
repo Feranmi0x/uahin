@@ -60,8 +60,8 @@ export function Footer() {
       <div className="container-wide flex flex-col gap-3 border-t border-white/15 py-6 text-xs text-white/45 md:flex-row md:justify-between">
         <span>© 2026 Upliftment Against Hunger Initiative NG (UAHIN). All rights reserved.</span>
         <span className="flex items-center gap-2">
-          <Mail size={13} /> hello@uahin.org{" "}
-          <Phone size={13} className="ml-3" /> +234 800 123 4567
+          <Mail size={13} /> info@uahin.org{" "}
+          <Phone size={13} className="ml-3" /> +234 8107433981
         </span>
       </div>
     </footer>

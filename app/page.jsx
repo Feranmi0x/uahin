@@ -111,7 +111,8 @@ function Navbar({ onDonate, navItems }) {
             return (
               <Link
                 key={n.to}
-                className={`relative rounded-full px-4 py-2 text-[0.76rem] font-semibold tracking-[0.16em] uppercase transition-all duration-200 hover:bg-[#f1f7f3] hover:text-[#123d35] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${active ? "bg-[#edf6f1] text-[#123d35] shadow-[inset_0_0_0_1px_rgba(26,102,88,0.08)]" : "text-[#425b56]"}`}
+                className={`site-nav-desktop-link ${active ? "is-active" : ""}`}
+                aria-current={active ? "page" : undefined}
                 to={n.to}
               >
                 {n.label}
@@ -131,17 +132,21 @@ function Navbar({ onDonate, navItems }) {
         </button>
       </div>
       {open && (
-        <nav className="container-wide flex flex-col gap-2 border-t border-border/70 py-5 md:hidden" aria-label="Mobile navigation">
-          {mainNavItems.map((n) => (
-            <Link
-              onClick={() => setOpen(false)}
-              key={n.to}
-              to={n.to}
-              className="rounded-2xl px-4 py-3 text-lg font-semibold transition hover:bg-secondary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              {n.label}
-            </Link>
-          ))}
+        <nav className="site-nav-mobile container-wide flex flex-col border-t border-border/70 py-2 md:hidden" aria-label="Mobile navigation">
+          {mainNavItems.map((n) => {
+            const active = location.pathname === n.to || (n.to !== "/" && location.pathname.startsWith(n.to));
+            return (
+              <Link
+                onClick={() => setOpen(false)}
+                key={n.to}
+                to={n.to}
+                className={`site-nav-mobile-link ${active ? "is-active" : ""}`}
+                aria-current={active ? "page" : undefined}
+              >
+                {n.label}
+              </Link>
+            );
+          })}
           <HelpButton
             onClick={() => {
               setOpen(false);
@@ -240,8 +245,8 @@ function Footer() {
       <div className="container-wide flex flex-col gap-3 border-t border-[#e8e4df] py-6 text-xs text-[#5d7169] md:flex-row md:justify-between">
         <span>© 2026 Upliftment Against Hunger Initiative NG (UAHIN). All rights reserved.</span>
         <span className="flex items-center gap-2">
-          <Mail size={13} /> hello@uahin.org{" "}
-          <Phone size={13} className="ml-3" /> +234 800 123 4567
+          <Mail size={13} /> info@uahin.org{" "}
+          <Phone size={13} className="ml-3" /> +234 8107433981
         </span>
       </div>
     </footer>
@@ -301,7 +306,7 @@ function Hero({
         <div className="mt-12 flex items-center gap-4 border-t border-border/80 pt-5 text-sm text-muted-foreground">
           <span className="flex size-9 items-center justify-center rounded-full bg-secondary text-primary"><Heart size={16} fill="currentColor" /></span>
           <span>
-            <span className="display text-2xl leading-none tracking-tighter text-[#11231e]">250k+</span>
+            <span className="display text-2xl leading-none tracking-tighter text-[#11231e]">20k+</span>
             <span className="ml-2">lives supported through community-led action</span>
           </span>
         </div>
@@ -361,9 +366,9 @@ function Why() {
     <section className="container-wide grid gap-10 py-24 md:grid-cols-[1.1fr_.9fr] md:items-center">
       <div className="relative min-h-100 overflow-hidden rounded-4xl">
         <img
-          src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1200&q=85"
-          alt="Children learning together in Nigeria"
-          className="absolute inset-0 size-full object-cover"
+          src="/hero-nigeria.png"
+          alt="African mother and daughter at a local food market"
+          className="absolute inset-0 size-full object-cover object-[60%_center]"
         />
         <div className="absolute bottom-5 right-5 max-w-52 rounded-2xl bg-accent p-5">
           <p className="display text-5xl">1 in 4</p>
@@ -386,7 +391,7 @@ function Why() {
             </p>
           </div>
           <div>
-            <p className="display text-5xl leading-none tracking-[-0.06em] text-[#11231e]">₦18bn</p>
+            <p className="display text-5xl leading-none tracking-[-0.06em] text-[#11231e]">₦1bn</p>
             <p className="mt-2 text-sm text-muted-foreground">
               in food value moved through communities
             </p>
@@ -567,7 +572,7 @@ function Campaign({ onDonate }) {
             <p className="mb-4 text-xs font-semibold uppercase tracking-[.2em] text-primary">
               Make a difference
             </p>
-            <h2 className="display text-5xl leading-none md:text-6xl lg:text-7xl">
+            <h2 className="display text-5xl leading-none md:text-4xl lg:text-5xl">
               Join us to end hunger in Nigeria.
             </h2>
             <p className="mt-6 max-w-lg text-base leading-7 text-[#54655f]">
@@ -709,7 +714,7 @@ function DonationSection() {
                     type="button"
                     key={v}
                     onClick={() => setAmount(v)}
-                    className={`rounded-xl border px-3 py-4 text-sm font-semibold transition ${amount === v ? "border-primary bg-[#edf6f1] text-[#2f5d54]" : "border-[#dfe7e1] bg-[#f7faf8] text-[#11231e] hover:border-[#cddbd3] hover:bg-white"}`}
+                    className={`rounded-xl border px-3 py-4 text-sm font-medium transition ${amount === v ? "border-primary bg-[#edf6f1] text-[#2f5d54]" : "border-[#dfe7e1] bg-[#f7faf8] text-[#11231e] hover:border-[#cddbd3] hover:bg-white"}`}
                   >
                     {symbol}{formatNaira(v)}
                   </button>
@@ -717,7 +722,7 @@ function DonationSection() {
                 <button
                   type="button"
                   onClick={() => setAmount("")}
-                  className={`rounded-xl border px-3 py-4 text-sm font-semibold transition ${typeof amount !== "number" ? "border-primary bg-[#edf6f1] text-[#2f5d54]" : "border-[#dfe7e1] bg-[#f7faf8] text-[#11231e] hover:border-[#cddbd3] hover:bg-white"}`}
+                  className={`rounded-xl border px-3 py-4 text-sm font-medium transition ${typeof amount !== "number" ? "border-primary bg-[#edf6f1] text-[#2f5d54]" : "border-[#dfe7e1] bg-[#f7faf8] text-[#11231e] hover:border-[#cddbd3] hover:bg-white"}`}
                 >
                   Custom Amount
                 </button>
@@ -1048,7 +1053,7 @@ function DonationExperience({ open, onOpenChange }) {
                       type="button"
                       key={v}
                       onClick={() => setAmount(v)}
-                      className={`rounded-xl border px-3 py-4 text-sm font-semibold transition ${amount === v ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
+                      className={`rounded-xl border px-3 py-4 text-sm font-medium transition ${amount === v ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
                     >
                       {symbol}{formatNaira(v)}
                     </button>
@@ -1056,7 +1061,7 @@ function DonationExperience({ open, onOpenChange }) {
                   <button
                     type="button"
                     onClick={() => setAmount("")}
-                    className={`rounded-xl border px-3 py-4 text-sm font-semibold ${typeof amount !== "number" ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
+                    className={`rounded-xl border px-3 py-4 text-sm font-medium ${typeof amount !== "number" ? "border-emerald-700 bg-emerald-50 text-[#2f5d54]" : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"}`}
                   >
                     Custom Amount
                   </button>
@@ -1211,7 +1216,7 @@ function FirstVisit() {
         if (!value) close();
       }}
     >
-      <DialogContent>
+      <DialogContent className="bg-white">
         <DialogHeader>
           <DialogTitle className="display text-3xl">
             Before you help
@@ -1222,7 +1227,7 @@ function FirstVisit() {
             Nigeria.
           </DialogDescription>
         </DialogHeader>
-        <div className="rounded-2xl bg-secondary p-4">
+        <div className="rounded-2xl border border-[#edf0ed] bg-white p-4">
           <p className="text-sm font-semibold">Accepted currencies</p>
           <p className="mt-2 text-sm text-muted-foreground">
             ₦ Nigerian Naira (NGN) only

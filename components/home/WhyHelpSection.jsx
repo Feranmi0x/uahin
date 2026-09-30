@@ -3,9 +3,9 @@ export function WhyHelpSection() {
     <section className="container-wide grid gap-10 py-24 md:grid-cols-[1.1fr_.9fr] md:items-center">
       <div className="relative min-h-[25rem] overflow-hidden rounded-[2rem]">
         <img
-          src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1200&q=85"
-          alt="Children learning together in Nigeria"
-          className="absolute inset-0 size-full object-cover"
+          src="/ekitialake.jpg"
+          alt="UAHIN food relief distribution for vulnerable residents in Ekiti State"
+          className="absolute inset-0 size-full object-cover object-[60%_center]"
         />
         <div className="absolute bottom-5 right-5 max-w-[13rem] rounded-2xl bg-[#efb366] p-5">
           <p className="display text-5xl">1 in 4</p>
@@ -32,7 +32,7 @@ export function WhyHelpSection() {
             </p>
           </div>
           <div>
-            <p className="text-3xl font-semibold">₦18bn</p>
+            <p className="text-3xl font-semibold">₦1bn</p>
             <p className="mt-1 text-sm text-muted-foreground">
               in food value moved through communities
             </p>

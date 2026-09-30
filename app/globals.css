@@ -41,6 +41,64 @@ body {
   font-family: Georgia, serif;
   letter-spacing: -0.04em;
 }
+.site-nav-desktop-link,
+.site-nav-mobile-link {
+  color: #171717;
+  font-family: "Iowan Old Style", Baskerville, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+.site-nav-desktop-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.site-nav-desktop-link::after {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  left: 10px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 160ms ease;
+}
+.site-nav-desktop-link:hover,
+.site-nav-desktop-link.is-active,
+.site-nav-mobile-link:hover,
+.site-nav-mobile-link.is-active {
+  color: #000;
+}
+.site-nav-desktop-link:hover::after,
+.site-nav-desktop-link.is-active::after {
+  transform: scaleX(1);
+}
+.site-nav-mobile-link {
+  display: block;
+  padding: 14px 10px;
+  border-bottom: 1px solid #dce5df;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.site-nav-mobile-link:last-of-type {
+  border-bottom: 0;
+}
+.site-nav-mobile-link.is-active {
+  font-weight: 400;
+}
+.site-nav-desktop-link:focus-visible,
+.site-nav-mobile-link:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 3px;
+}
 .container-wide {
   width: min(1160px, calc(100% - 40px));
   margin-inline: auto;

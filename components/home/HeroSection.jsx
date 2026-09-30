@@ -39,7 +39,7 @@ export function HeroSection({ copy = {
           className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute bottom-5 left-5 rounded-2xl bg-background/90 p-4 backdrop-blur">
-          <p className="text-2xl font-semibold">250k+</p>
+          <p className="text-2xl font-semibold">20k+</p>
           <p className="text-xs text-muted-foreground">people reached</p>
         </div>
       </div>

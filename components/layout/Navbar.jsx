@@ -17,7 +17,8 @@ export function Navbar({ onDonate }) {
           {navItems.map((n) => (
             <Link
               key={n.to}
-              className={`text-sm transition-colors hover:text-primary ${location.pathname.startsWith(n.to) ? "font-semibold text-primary" : "text-muted-foreground"}`}
+              className={`site-nav-desktop-link ${location.pathname.startsWith(n.to) ? "is-active" : ""}`}
+              aria-current={location.pathname.startsWith(n.to) ? "page" : undefined}
               to={n.to}
             >
               {n.label}
@@ -34,13 +35,14 @@ export function Navbar({ onDonate }) {
         </button>
       </div>
       {open && (
-        <nav className="container-wide flex flex-col gap-4 border-t py-5 md:hidden">
+        <nav className="site-nav-mobile container-wide flex flex-col border-t py-2 md:hidden">
           {navItems.map((n) => (
             <Link
               onClick={() => setOpen(false)}
               key={n.to}
               to={n.to}
-              className={`text-sm transition-colors hover:text-primary ${location.pathname.startsWith(n.to) ? "font-semibold text-primary" : "text-muted-foreground"}`}
+              className={`site-nav-mobile-link ${location.pathname.startsWith(n.to) ? "is-active" : ""}`}
+              aria-current={location.pathname.startsWith(n.to) ? "page" : undefined}
             >
               {n.label}
             </Link>
